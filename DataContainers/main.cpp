@@ -42,11 +42,49 @@ public:
 		size = 0;
 		cout << "LConstructor:\t" << this << endl;
 	}
-	
+	ForwardList(unsigned int size):ForwardList()
+	{
+		this->Head = nullptr;
+		this-> size=0;
+		for (int i = 0; i < size; i++)
+		{
+			push_front(0);
+		}
+		
+	}
+	ForwardList(const initializer_list<int>& il) :ForwardList()
+	{
+	cout << typeid(il.begin()).name() << endl;
+	//cont int* -константный указатель(не измен€етс€ адрес
+	//int const* указатель на константу(не измен€етс€ значение по адресу
+	for (int const* it = il.begin(); it != il.end(); it++)
+	{
+		//it-iterator
+		push_back(*it);
+	}
+	/*for(int const* it=il.end()-1;it!=il.begin()-1;it--)
+	{
+	push_front(*it);
+	}
+	*/
+	}
 	~ForwardList()
 	{
 		while (Head)pop_front();//если в хэд не ноль удал€ем начальный элемент
 		cout << "LDestrucror:\t" << this << endl;
+	}
+	//Operators:
+	const int& operator[](int index)const
+	{
+		Element* Temp = Head;
+		for (int i = 0; i < index; i++)Temp = Temp->pNext;
+		return Temp->Data;
+    }
+	int& operator[](int index)//оператор[]  возвращает значение по индексу
+	{
+		Element* Temp = Head;
+		for (int i = 0; i < index; i++)Temp = Temp->pNext;
+		return Temp->Data;
 	}
 
 	//Adding elements
@@ -143,6 +181,9 @@ public:
 };
 //#define BASE_CHECK
 //#define DESRTUCTOR_CHECK
+//#define HOME_WORK_1
+#define HOME_WORK_2
+
 void main() 
 {
 	setlocale(LC_ALL, "");
@@ -199,14 +240,37 @@ void main()
 	cout << "—писок заполнен:\t" << endl;
 #endif // DESTRUC_CHECK
 
+#ifdef DESTRUCTOR_CHECK
 	int n;
-	cout << "¬ведите размер списка:"; cin >> n;
-	ForwardList list(n);
+	cout << "¬ведите размер списка: "; cin >> n;
+	ForwardList list;
+	for (int i = 0; i < n; i++)
+	{
+		list.push_front(rand());
+	}
+	//cout << "—писок заполнен" << endl;
+	list.print();
+#endif // DESTRUCTOR_CHECK
 
+#ifdef HOME_WORK_1
+	int n;
+	cout << "¬ведите размер списка: "; cin >> n;
+	ForwardList list(n);
 	for (int i = 0; i < n; i++)
 	{
 		list[i] = rand() % 100;
 	}
-
+	for (int i = 0; i < n; i++)
+	{
+		cout << list[i] << tab;
+	}
 	cout << endl;
+#endif // HOME_WORK_1
+
+#ifdef HOME_WORK_2
+	//l-value        =   r-value
+	ForwardList list = { 3,5,8,13,21 };
+	//(ForwardList)     (initializer_list)
+	list.print();
+#endif // HOME_WORK_2
 }
