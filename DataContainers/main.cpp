@@ -90,9 +90,10 @@ public:
 	//Adding elements
 	void push_front(int Data)
 	{
-		Element* New = new Element(Data);//Создаем новый элемент
+		/*Element* New = new Element(Data);//Создаем новый элемент
 		New->pNext = Head;//привязываем новый элемент к началу списка
-		Head = New;
+		Head = New;*/
+        Head = new Element(Data, Head);
 		size++;
 	}
 	void pop_front()
