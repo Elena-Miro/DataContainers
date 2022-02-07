@@ -28,14 +28,59 @@ public:
 
 	}
 	friend class ForwardList;
-
+	friend class Iterator;
 };
 int Element::count = 0;
+class Iterator
+{
+	Element* Temp;
+public:
+	Iterator(Element* Temp = nullptr) :Temp(Temp)
+	{
+		cout << "ItConstructor:\t" << this << endl;
+	}
+	~Iterator()
+	{
+		cout << "ItDestructor:\t" << this << endl;
+	}
+	Iterator& operator++()
+	{
+		Temp = Temp->pNext;
+		return *this;
+    }
+	Iterator operator++(int)
+	{
+		Iterator old = *this;//сохраняем старое значение итератора
+		Temp = Temp->pNext;//изменяем итератор
+		return old;//возвращаем старое значение
+	}
+	bool operator==(const Iterator& other)const
+	{
+		return this->Temp==other.Temp;
+	}
+	bool operator!=(const Iterator& other)const
+	{
+		return this->Temp != other.Temp;
+	}
+	const int& operator*() const
+	{
+		return Temp->Data;
+	}
+	int& operator*()
+	{
+		return Temp->Data;
+	}
+
+};
 class ForwardList//односвязный список
 {
 	Element* Head;//голова указывает на начальный элемент списка
 	unsigned int size;//размер списка
 public:
+	Element* getHead()const
+	{
+		return Head;
+	}
 	ForwardList()
 	{
 		Head = nullptr;//если голова указывает на 0 , то список пуст
@@ -80,6 +125,7 @@ public:
 		for (int i = 0; i < index; i++)Temp = Temp->pNext;
 		return Temp->Data;
     }
+	
 	int& operator[](int index)//оператор[]  возвращает значение по индексу
 	{
 		Element* Temp = Head;
@@ -122,13 +168,17 @@ public:
 	}
 	void print()const
 	{
+#ifdef OLD_PRINT
 		Element* Temp = Head;//Temp-это итератор
 		while (Temp)//пока итератор содержит не нулевой адрес
 		{
 			cout << Temp << tab << Temp->Data << tab << Temp->pNext << endl;
 			Temp = Temp->pNext;//переход на следующий элемент
-				
+
 		}
+#endif // OLD_PRINT
+		for (Element* Temp = Head; Temp;Temp = Temp->pNext)
+			cout << Temp << tab << Temp->Data << tab << Temp->pNext << endl;
 
 		cout << "Количество элементов списка:" << size << endl;
 		cout << "Общее количество элементов :" << Head->count << endl;
@@ -272,6 +322,12 @@ void main()
 	//l-value        =   r-value
 	ForwardList list = { 3,5,8,13,21 };
 	//(ForwardList)     (initializer_list)
-	list.print();
+	//list.print();
+	for (Iterator it = list.getHead(); it != nullptr; ++it)
+	{
+		cout << *it << tab;
+	}
+	cout << endl;
 #endif // HOME_WORK_2
+	
 }
