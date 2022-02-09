@@ -54,6 +54,7 @@ public:
 		Temp = Temp->pNext;//изменяем итератор
 		return old;//возвращаем старое значение
 	}
+	
 	bool operator==(const Iterator& other)const
 	{
 		return this->Temp==other.Temp;
@@ -80,6 +81,14 @@ public:
 	Element* getHead()const
 	{
 		return Head;
+	}
+	Iterator begin()
+	{
+		return Head;
+	}
+	Iterator end()
+	{
+		return nullptr;
 	}
 	ForwardList()
 	{
@@ -233,7 +242,9 @@ public:
 //#define BASE_CHECK
 //#define DESRTUCTOR_CHECK
 //#define HOME_WORK_1
-#define HOME_WORK_2
+//#define HOME_WORK_2
+//#define RANGE_BASED_FOR_ARRAY
+#define RANGE_BASED_FOR_LIST
 
 void main() 
 {
@@ -329,5 +340,18 @@ void main()
 	}
 	cout << endl;
 #endif // HOME_WORK_2
-	
+#ifdef RANGE_BASED_FOR_LIST
+	ForwardList list = { 3,5,8,13,21 };
+	for (int i : list)
+	{
+		cout << i << tab;
+	}
+	cout << endl;
+#endif // RANGE_BASE_FOR_LIST
+	// RANGE_BASE_FOR_LIST
+	//_______________________
+	//for(value:container)
+	//{
+	//cout<<value;
+	//}
 }
