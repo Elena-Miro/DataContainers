@@ -128,7 +128,7 @@ public:
 		cout << "LDestrucror:\t" << this << endl;
 	}
 	//Operators:
-	const int& operator[](int index)const
+	ForwardList<T>& operator=(const ForwardList<T>& other)
 	{
 		Element* Temp = Head;
 		for (int i = 0; i < index; i++)Temp = Temp->pNext;
@@ -236,6 +236,15 @@ public:
 		New->pNext = Temp->pNext;
 		Temp->pNext = New;
 		size++;
+	}
+	void revers(T& element)
+	{
+		for (auto element =element.end(); element != element.begin(); element--)
+		{
+			cout << *element << tab;
+		}
+		cout << endl;
+
 	}
 
 };
@@ -347,6 +356,10 @@ void main()
 		cout << i << tab;
 	}
 	cout << endl;
+
+	
+	
+
 #endif // RANGE_BASE_FOR_LIST
 	// RANGE_BASE_FOR_LIST
 	//_______________________
@@ -354,4 +367,19 @@ void main()
 	//{
 	//cout<<value;
 	//}
+	ForwardList<double> d_list = { 2.5,3.14,5.2,8.3 };
+	for (double i : d_list)
+	{
+		cout << i << tab;
+	}
+	cout << endl;
+	ForwardList<string>s_list = { "Have","a","nice","day" };
+	for (string i : s_list)cout << i << tab; cout << endl;
+
+	//ForwardList<string>s_list2 = s_list;
+	//for (string i : s_list2)cout << i << tab; cout << endl;
+
+	ForwardList<string> s_list2;
+	s_list2 = s_list;
+	for (string i : s_list2)cout << i << tab; cout << endl;
 }
