@@ -137,6 +137,14 @@ public:
 	protected:
 		Element* Temp;
 	public:
+		BaseIterator(Element* Temp = nullptr) :Temp(Temp)
+		{
+			cout << "BItConstructor:\t" << this << endl;
+		}
+		~BaseIterator()
+		{
+			cout << "BItDestructor:\t" << this << endl;
+		}
 		bool operator ==(const BaseIterator& other)const
 		{
 			return this->Temp == other.Temp;
@@ -159,13 +167,13 @@ public:
 	class ConstIterator :public BaseIterator
 	{
 	public:
-		ConstIterator(Element* Temp = nullptr) :BaseIterator(Temp)
+		ConstIterator(Element* Temp) :BaseIterator(Temp)
 		{
-			cout << "ItConstructor:\t" << this << endl;
+			cout << "CItConstructor:\t" << this << endl;
 		}
 		~ConstIterator()
 		{
-			cout << "ItDestructor:\t" << this << endl;
+			cout << "CItDestructor:\t" << this << endl;
 		}
 		ConstIterator& operator ++()
 		{
@@ -174,7 +182,7 @@ public:
 		}
 		ConstIterator operator++(int)
 		{
-			Iterator old = *this;
+			ConstIterator old = *this;
 			Temp = Temp->pNext;
 			return old;
 		}
@@ -185,7 +193,7 @@ public:
 		}
 		ConstIterator operator--(int)
 		{
-			Iterator old = *this;
+			ConstIterator old = *this;
 			Temp = Temp->pPrev;
 			return old;
 		}
@@ -193,6 +201,38 @@ public:
 	};
 	class Iterator:public ConstIterator
 	{
+	public:
+		Iterator(Element* Temp) :ConstIterator(Temp)
+		{
+			cout << "ItConstructor:\t" << this << endl;
+		}
+		~Iterator()
+		{
+			cout << "ItDestructor:\t" << this << endl;
+		}
+		Iterator& operator ++()
+		{
+			Temp = Temp->pNext;
+			return *this;
+		}
+		Iterator operator++(int)
+		{
+			Iterator old = *this;
+			Temp = Temp->pNext;
+			return old;
+		}
+		Iterator& operator--()
+		{
+			Temp = Temp->pPrev;
+			return *this;
+		}
+		Iterator operator--(int)
+		{
+			Iterator old = *this;
+			Temp = Temp->pPrev;
+			return old;
+		}
+
 
 	};
 	class ConstReversIterator :public BaseIterator
