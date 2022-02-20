@@ -195,7 +195,7 @@ public:
 		New->pPrev = Tail;
 		Tail->pNext = New;
 		Tail = New;*/
-		Tail = Tail->pPrev = new Element(Data,nullptr, Tail);
+		Tail = Tail->pNext = new Element(Data,nullptr, Tail);
 		size++;
 	}
 	void pop_front()//удаление в начале
@@ -225,7 +225,7 @@ public:
 	{
 		if (index > size)return;
 		if (index == 0)return push_front(Data);
-		if (index = size)return push_back(Data);
+		if (index >= size)return push_back(Data);
 		
 		Element* Temp;
 		if (index < size / 2)
@@ -241,11 +241,12 @@ public:
 		}
 		//Неважно с какой стороны добрались до нового элемента
 		//процедура добавления нового элемента будет идентичной
-		Element* New = new Element(Data);
+		/*Element* New = new Element(Data);
 		New->pNext = Temp;
 		New->pPrev = Temp->pPrev;
 		Temp->pPrev->pNext = New;
-		Temp->pPrev = New;
+		Temp->pPrev = New;*/
+		Temp->pPrev = Temp->pPrev->pNext = new Element(Data, Temp, Temp->pPrev);
 		size++;
 	}
 	void print()const
@@ -262,7 +263,7 @@ public:
 	}
 };
 
-#define BASE_CHECK
+//#define BASE_CHECK
 
 void main()
 {
@@ -278,12 +279,12 @@ void main()
 	}
 	list.print();
 	list.revers_print();
-	list.push_back(rand() % 100);
+	/*list.push_back(rand() % 100);
 	list.print();
 	list.pop_front();
 	list.print();
 	list.pop_back();
-	list.print();
+	list.print();*/
 
 	int index;
 	int value;
@@ -293,7 +294,7 @@ void main()
 	list.print();
 	list.revers_print();
 #endif // BASE_CHECK
-	/*List list = {3,5,8,13,21};
+	List list = {3,5,8,13,21};
 	//list.print();
 	for (int i : list)
 	{
@@ -305,5 +306,5 @@ void main()
 		cout << *it << tab;
 
 	}
-	cout << endl;*/
+	cout << endl;
 }
