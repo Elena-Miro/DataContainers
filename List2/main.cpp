@@ -173,12 +173,15 @@ public:
 			size++;
 			return;
 		}
+/*
 		Element* New = new Element(Data);
 		New->pNext = Head;
 		Head->pPrev = New;
 		Head = New;
+*/
+
+		Head = Head->pPrev = new Element(Data, Head);
 		size++;
-		//Head=Head->pPrev=new Element(Data,Head)
 	}
 	void push_back(int Data)
 	{
@@ -188,10 +191,11 @@ public:
 			size++;
 			return;
 		}
-		Element* New = new Element(Data);
+		/*Element* New = new Element(Data);
 		New->pPrev = Tail;
 		Tail->pNext = New;
-		Tail = New;
+		Tail = New;*/
+		Tail = Tail->pPrev = new Element(Data,nullptr, Tail);
 		size++;
 	}
 	void pop_front()//удаление в начале
@@ -258,7 +262,7 @@ public:
 	}
 };
 
-//#define BASE_CHECK
+#define BASE_CHECK
 
 void main()
 {
@@ -289,7 +293,7 @@ void main()
 	list.print();
 	list.revers_print();
 #endif // BASE_CHECK
-	List list = { 3,5,8,13,21 };
+	/*List list = {3,5,8,13,21};
 	//list.print();
 	for (int i : list)
 	{
@@ -301,5 +305,5 @@ void main()
 		cout << *it << tab;
 
 	}
-	cout << endl;
+	cout << endl;*/
 }
