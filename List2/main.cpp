@@ -22,6 +22,8 @@ class List
 	}*Head,*Tail;
 	size_t size;
 public:
+
+#ifdef DEBUG
 	class Iterator
 	{
 		Element* Temp;
@@ -68,7 +70,7 @@ public:
 		{
 			return Temp->Data;
 		}
-		 int& operator*()
+		int& operator*()
 		{
 			return Temp->Data;
 		}
@@ -108,27 +110,55 @@ public:
 			Temp = Temp->pNext;
 			return old;
 		}
-	bool operator==(const ReversIterator& other)const
-	{
-		return this->Temp == other.Temp;
-	}
-	bool operator!=(const ReversIterator& other)const
-	{
-		return this->Temp != other.Temp;
-	}
-	const int& operator*()const
-	{
-		return Temp->Data;
-	}
-	int& operator*()
-	{
-		return Temp->Data;
-	}
-	operator bool()const
-	{
-		return Temp;
-	}
+		bool operator==(const ReversIterator& other)const
+		{
+			return this->Temp == other.Temp;
+		}
+		bool operator!=(const ReversIterator& other)const
+		{
+			return this->Temp != other.Temp;
+		}
+		const int& operator*()const
+		{
+			return Temp->Data;
+		}
+		int& operator*()
+		{
+			return Temp->Data;
+		}
+		operator bool()const
+		{
+			return Temp;
+		}
 	};
+#endif // DEBUG
+	class BaseIterator
+	{
+		Element* Temp;
+
+		bool operator ==(const BaseIterator& other)const
+		{
+			return this->Temp == other.Temp;
+		}
+		bool operator !=(const BaseIterator& other)const
+		{
+			return this->Temp != other.Temp;
+		}
+		const int& operator*()const
+		{
+			return Temp->Data;
+		}
+		int& operator*()
+		{
+			return Temp->Data;
+		}
+		virtual ~BaseIterator(){}
+		virtual BaseIterator& operator ++() const = 0;
+		virtual BaseIterator operator++(int) const = 0;
+		virtual BaseIterator& operator--() const = 0;
+		virtual BaseIterator operator--(int) const = 0;
+	};
+
 	Iterator begin()
 	{
 		return Head;
