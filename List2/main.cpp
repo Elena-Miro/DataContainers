@@ -134,8 +134,9 @@ public:
 #endif // DEBUG
 	class BaseIterator
 	{
+	protected:
 		Element* Temp;
-
+	public:
 		bool operator ==(const BaseIterator& other)const
 		{
 			return this->Temp == other.Temp;
