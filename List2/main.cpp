@@ -152,11 +152,55 @@ public:
 		{
 			return Temp->Data;
 		}
-		virtual ~BaseIterator(){}
-		virtual BaseIterator& operator ++() const = 0;
-		virtual BaseIterator operator++(int) const = 0;
-		virtual BaseIterator& operator--() const = 0;
-		virtual BaseIterator operator--(int) const = 0;
+		
+		
+	};
+	class ConstIterator :public BaseIterator
+	{
+	public:
+		ConstIterator(Element* Temp = nullptr) :BaseIterator(Temp)
+		{
+			cout << "ItConstructor:\t" << this << endl;
+		}
+		~ConstIterator()
+		{
+			cout << "ItDestructor:\t" << this << endl;
+		}
+		ConstIterator& operator ++()
+		{
+			Temp = Temp->pNext;
+			return *this;
+		}
+		ConstIterator operator++(int)
+		{
+			Iterator old = *this;
+			Temp = Temp->pNext;
+			return old;
+		}
+		ConstIterator& operator--()
+		{
+			Temp = Temp->pPrev;
+			return *this;
+		}
+		ConstIterator operator--(int)
+		{
+			Iterator old = *this;
+			Temp = Temp->pPrev;
+			return old;
+		}
+
+	};
+	class Iterator:public ConstIterator
+	{
+
+	};
+	class ConstReversIterator :public BaseIterator
+	{
+
+	};
+	class ReversIterator :public ConstReversIterator
+	{
+
 	};
 
 	Iterator begin()
