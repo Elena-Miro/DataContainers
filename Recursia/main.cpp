@@ -1,4 +1,4 @@
-#include <iostream>
+ï»¿#include <iostream>
 using namespace std;
 
 long double factorial(int n)
@@ -11,6 +11,6 @@ void main()
 {
 	setlocale(LC_ALL, "");
 	int n;
-	cout << "Ââåäèòå ÷èñëî:\t"; cin >> n;
-	cout << "Ôàêòîðèàë äëÿ ÷èñëà " << n << " = " << factorial(n) << endl;
+	cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ñ‡Ð¸ÑÐ»Ð¾:\t"; cin >> n;
+	cout << "Ð¤Ð°ÐºÑ‚Ð¾Ñ€Ð¸Ð°Ð» Ð´Ð»Ñ Ñ‡Ð¸ÑÐ»Ð° " << n << " = " << factorial(n) << endl;
 }
